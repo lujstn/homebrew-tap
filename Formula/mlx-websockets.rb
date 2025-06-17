@@ -3,8 +3,8 @@ class MlxWebsockets < Formula
 
   desc "WebSocket streaming server for MLX models on Apple Silicon"
   homepage "https://github.com/lujstn/mlx-websockets"
-  url "https://github.com/lujstn/mlx-websockets/archive/refs/tags/v0.2.1.tar.gz"
-  sha256 "1cc7ad8d950c70df47d0b5bbe92b753929f107fe664ffd7a991dfed9d4895f79"
+  url "https://github.com/lujstn/mlx-websockets/archive/refs/tags/v0.2.2.tar.gz"
+  sha256 "b79e1e8cdd7ee62ab43a290f9eb920a89480f2c05d555c2596575d6ccc124617"
   license "MIT"
 
   depends_on "python@3.11"
