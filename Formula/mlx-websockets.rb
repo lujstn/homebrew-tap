@@ -4,24 +4,23 @@ class MlxWebsockets < Formula
   desc "WebSocket streaming server for MLX models on Apple Silicon"
   homepage "https://github.com/lujstn/mlx-websockets"
   url "https://github.com/lujstn/mlx-websockets/archive/refs/tags/v0.2.1.tar.gz"
-  sha256 "1cc7ad8d950c70df47d0b5bbe92b753929f107fe664ffd7a991dfed9d4895f79"  # This will be updated by the release workflow
+  sha256 "1cc7ad8d950c70df47d0b5bbe92b753929f107fe664ffd7a991dfed9d4895f79"
   license "MIT"
 
   depends_on "python@3.11"
-  depends_on "rust" => :build  # Required for some Python dependencies
+  depends_on "rust" => :build
 
-  # MLX requires macOS and Apple Silicon
   depends_on :macos
   depends_on arch: :arm64
 
-  # Python dependencies will be automatically resolved by pip
-  # when installing from PyPI package
-
   def install
-    # Install Python package with all dependencies
-    virtualenv_install_with_resources
-
-    # Ensure the mlx command is available
+    virtualenv_create(libexec, "python3.11")
+    system libexec/"bin/pip", "install", "--verbose", "--no-deps", "--no-binary", ":all:", buildpath
+    system libexec/"bin/pip", "install", "--verbose", "--no-deps", "--only-binary", ":all:",
+           "mlx>=0.15.0", "mlx-lm>=0.15.0", "mlx-vlm>=0.0.6", 
+           "websockets>=12.0", "Pillow>=10.0.0", "numpy>=1.24.0",
+           "rich>=13.0.0", "psutil>=5.9.0"
+    
     bin.install_symlink libexec/"bin/mlx"
   end
 
